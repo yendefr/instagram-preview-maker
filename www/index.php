@@ -103,6 +103,9 @@ if ($_SERVER['REQUEST_URI'] == "/") {
     }
     mkdir($folder);
 
+    $url = $account->getProfilePicUrl();
+    file_put_contents($folder.'/logo.png', file_get_contents($url));
+
     ob_start();
     if (isset($_POST['is-random'])) {
         include "./output-random.php";
@@ -113,14 +116,34 @@ if ($_SERVER['REQUEST_URI'] == "/") {
     $file = fopen($folder.'/index.html',"wt");
     fputs($file, $output);
     fclose($file);
-
-    $url = $account->getProfilePicUrl();
-    file_put_contents($folder.'/logo.png', file_get_contents($url));
+    ob_end_clean();
 
     $files_to_zip = array(
         $folder.'/index.html',
         $folder.'/logo.png'
     );
+
+    if (isset($_POST['is-politic'])) {
+        $website = $account->getUsername();
+        ob_start();
+        include "./extra/privacy-policy.html";
+        $output = ob_get_contents();
+        $file = fopen($folder.'/privacy-policy.html',"wt");
+        fputs($file, $output);
+        fclose($file);
+        ob_end_clean();
+
+        ob_start();
+        include "./extra/terms.html";
+        $output = ob_get_contents();
+        $file = fopen($folder.'/terms.html',"wt");
+        fputs($file, $output);
+        fclose($file);
+        ob_end_clean();
+
+        $files_to_zip[] = $folder.'/privacy-policy.html';
+        $files_to_zip[] = $folder.'/terms.html';
+    }
 
     $result = create_zip($files_to_zip, $folder.'/'.$folder.'.zip');
     file_force_download($folder.'/'.$folder.'.zip');
@@ -128,6 +151,8 @@ if ($_SERVER['REQUEST_URI'] == "/") {
     unlink($folder.'/'.$folder.'.zip');
     unlink($folder.'/index.html');
     unlink($folder.'/logo.png');
+    unlink($folder.'/privacy-policy.html');
+    unlink($folder.'/terms.html');
     rmdir($folder);
 
     file_put_contents('extra/history.txt', $link. ';', FILE_APPEND);

@@ -15,7 +15,9 @@
   <a href="settings.php">Настройки</a>
   <div class="is-random">
     <label for="is-random">Уникализировать?</label>
-    <input type="checkbox" name="is-random" id="is-random" form="gen" checked>
+    <input type="checkbox" name="is-random" id="is-random" form="gen" checked> <br>
+    <label for="is-politic">Добавить Privacy policy?</label>
+    <input type="checkbox" name="is-politic" id="is-politic" form="gen" checked>
   </div>
 </div>
 <div class="form">

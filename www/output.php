@@ -88,7 +88,12 @@
     </div>
     <p class=""><?= $account->getBiography() ?></p>
 
-    <a href="<?= $link ?>" class="btn btn-open">Open in Instagram</a>
+    <a href="<?= $link ?>" class="btn btn-open">Open in Instagram</a> <br>
+    <?php
+      if (isset($_POST['is-politic'])) {
+        echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
+      }
+    ?>
 </div>
 <script>
     //setTimeout(function(){window.location.replace('<?//= $link ?>//');}, 2500);
