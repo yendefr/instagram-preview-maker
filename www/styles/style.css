@@ -1,0 +1,80 @@
+.form {
+    margin-top: 5%;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+}
+.input_link {
+    margin-bottom: 50px;
+}
+.input_template {
+    margin-bottom: 60px;
+}
+input {
+    margin-top: 5px;
+    width: 65%;
+}
+select {
+    margin-top: 10px;
+    width: 65%;
+}
+button {
+    padding: 10px;
+    width: 50%;
+    background: #5195F2;
+    color: #fff;
+    border: none;
+}
+a {
+    text-decoration: none;
+    color: #fff;
+}
+p.error {
+    color: #c23436;
+}
+.settings {
+    float: right;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+}
+.settings > a {
+    color: #000;
+}
+.is-random {
+    margin-top: 30px;
+}
+.is-random > input {
+    display: inline-block;
+    width: 15px;
+}
+
+h1 {
+    font-size: 28px;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+h2 {
+    margin-bottom: 15px;
+}
+.input_token {
+    margin-bottom: 15px;
+}
+.tokens {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+}
+.unclickable {
+    min-width: 490px;
+    border: none;
+}
+.form-line {
+    display: flex;
+    flex-direction: row;
+}
+.form-line > button {
+    margin-top: 3px;
+    padding: 3px;
+    width: 25%;
+}
