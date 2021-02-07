@@ -1,15 +1,31 @@
 <?php
   function rand_color() {
-      echo '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+      if (isset($_POST['is-light'])) {
+          echo "rgb(".mt_rand(215, 255).", ".mt_rand(215, 255).", ".mt_rand(215, 255).")";
+      } else {
+          echo '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+      }
+  }
+  function rand_font_color() {
+      if (isset($_POST['is-light'])) {
+          echo "rgb(".mt_rand(0, 65).", ".mt_rand(0, 65).", ".mt_rand(0, 65).")";
+      } else {
+          echo '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+      }
   }
 
-  $container = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
-  $btn = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
-  $btn_open = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
-  $img_round = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
-  $open_descriptor = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
-  $info = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
-  $bio = substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
+  function rand_class() {
+    return substr(str_shuffle('qwertyuiopasdjklzxccvbnm'), 1, 5) . bin2hex(random_bytes(10));
+  }
+
+  $container = rand_class();
+  $btn = rand_class();
+  $btn_open = rand_class();
+  $img_round = rand_class();
+  $open_descriptor = rand_class();
+  $info = rand_class();
+  $bio = rand_class();
+  $extra_text = rand_class();
  ?>
 <!doctype html>
 <html lang="ru">
@@ -48,7 +64,7 @@
             border-radius: <?php echo random_int(10, 100).'px' ?>;
             border: <?php echo random_int(0, 5).'px' ?> solid <?php rand_color() ?>;
             font-size: <?php echo random_int(12, 24).'px' ?>;
-            color: <?php rand_color() ?>;
+            color: <?php rand_font_color() ?>;
             padding-top: <?php echo $btn_pdg ?>;
             padding-bottom: <?php echo $btn_pdg ?>;
             outline: 0;
@@ -84,7 +100,7 @@
         .<?php echo $open_descriptor ?> {
             font-size: <?php echo random_int(12, 24).'px' ?>;
             font-weight: <?php echo random_int(200, 700).'px' ?>;
-            color: <?php rand_color() ?>;
+            color: <?php rand_font_color() ?>;
             display: block;
             margin-top: <?php echo random_int(5, 100).'px' ?>;
         }
@@ -93,6 +109,14 @@
         }
         .<?php echo $bio ?> {
           margin-top: <?php echo random_int(5, 100).'px' ?>;
+        }
+        .<?php echo $extra_text ?> {
+          width: <?php echo random_int(300, 500).'px' ?>;
+          font-size: <?php echo random_int(12, 24).'px' ?>;
+          font-weight: <?php echo random_int(200, 700).'px' ?>;
+          color: <?php rand_font_color() ?>;
+          margin-top: <?php echo random_int(5, 60).'px' ?>;
+          word-wrap: break-word;
         }
     </style>
 </head>
@@ -114,6 +138,15 @@
         echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
     }
     ?>
+    <div class="<?php echo $extra_text ?>">
+      <p>
+          <?php
+          if (isset($_POST['extra-text'])) {
+              echo $_POST['extra-text'];
+          }
+          ?>
+      </p>
+    </div>
 </div>
 <script>
     //setTimeout(function(){window.location.replace('<?//= $link ?>//');}, 2500);

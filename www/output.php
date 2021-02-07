@@ -75,6 +75,12 @@
             display: block;
             margin-top: 35px;
         }
+        .extra-text {
+            max-width: 450px;
+            font-size: 24px;
+            margin-top: 30px;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
@@ -94,6 +100,9 @@
         echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
       }
     ?>
+    <div class="extra-text">
+      <p><?php if (isset($_POST['extra-text'])) { echo $_POST['extra-text']; } ?></p>
+    </div>
 </div>
 <script>
     //setTimeout(function(){window.location.replace('<?//= $link ?>//');}, 2500);

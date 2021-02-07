@@ -2,6 +2,7 @@
     "require": {
         "guzzlehttp/guzzle": "^7.2",
         "phpfastcache/phpfastcache": "^8.0",
-        "restyler/instagram-php-scraper": "^1.0"
+        "restyler/instagram-php-scraper": "^1.0",
+        "ext-curl": "*"
     }
 }

@@ -4,6 +4,7 @@ use GuzzleHttp\Client;
 use InstagramScraper\Instagram;
 
 require __DIR__ . '/../vendor/autoload.php';
+$base_url = '/';
 
 function create_zip($files = array(),$destination = '',$overwrite = false) {
     if(file_exists($destination) && !$overwrite) { return false; }
@@ -58,22 +59,24 @@ function getToken() {
 }
 
 
-if ($_SERVER['REQUEST_URI'] == "/") {
+if ($_SERVER['REQUEST_URI'] == $base_url) {
     include "./input.php";
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
     session_start();
     try {
         $link = trim($_POST['link']);
 
-        $handle = fopen("extra/history.txt", "r");
-        $buffer = explode(';', fgets($handle));
-        fclose($handle);
+        if (!isset($_POST['is-force-gen'])) {
+            $handle = fopen("extra/history.txt", "r");
+            $buffer = explode(';', fgets($handle));
+            fclose($handle);
 
-        array_pop($buffer);
-        foreach ($buffer as $l) {
-            if ($l === $link) {
-                $_SESSION['status'] = 'error';
-                include "./input.php";die;
+            array_pop($buffer);
+            foreach ($buffer as $l) {
+                if ($l === $link) {
+                    $_SESSION['status'] = 'error';
+                    include "./input.php";die;
+                }
             }
         }
         $_SESSION['status'] = 'done';
@@ -157,7 +160,7 @@ if ($_SERVER['REQUEST_URI'] == "/") {
 
     file_put_contents('extra/history.txt', $link. ';', FILE_APPEND);
     session_unset();
-} elseif ($_SERVER['REQUEST_URI'] == "/settings.php") {
+} elseif ($_SERVER['REQUEST_URI'] == $base_url."settings.php") {
     include "./settings.php";
 } elseif ($_SERVER['REQUEST_METHOD'] == "GET") {
     if (isset($_GET['token']) and $_GET['token'] !== null) {
@@ -180,5 +183,5 @@ if ($_SERVER['REQUEST_URI'] == "/") {
         }
         fclose($handle);
     }
-    header('Location: /settings.php');
+    header('Location: '.$base_url.'settings.php');
 }
