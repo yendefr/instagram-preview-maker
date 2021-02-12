@@ -30,9 +30,16 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <title>Open in Instagram</title>
+    <?php if ($_POST['is-extra-edit'] != 'on') { ?>
+      <title>Open in Instagram</title>
+    <?php } else {
+        echo $_POST['extra-edit'];
+    } ?>
     <meta charset="utf-8">
     <meta name="viewport" content="<?php echo random_int(400, 800).'px' ?>">
+    <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) {
+        echo "<meta property=\"og:image\" content=\"./extra-photo.png\"/>";
+    } ?>
   <style>
         body {
             min-width: <?php echo random_int(300, 600).'px' ?>;
@@ -132,12 +139,10 @@
     </div>
 
   <a href="<?= /** @var string $link */
-    $link ?>" class="<?php echo $btn ?> <?php echo $btn_open ?>">Open in Instagram</a>
-    <?php
-    if (isset($_POST['is-politic'])) {
-        echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
-    }
-    ?>
+    $link ?>" class="<?php echo $btn ?> <?php echo $btn_open ?>"><?php if ($_POST['extra-button'] !== '') { echo $_POST['extra-button']; } else { echo "Open in Instagram"; } ?></a>
+    <div style="margin-top: <?php echo random_int(1, 30).'px' ?>;">
+        <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) { echo '<img src="./extra-photo.png">'; } ?>
+    </div>
     <div class="<?php echo $extra_text ?>">
       <p>
           <?php
@@ -147,9 +152,18 @@
           ?>
       </p>
     </div>
+    <div style="position: relative; bottom: 0;">
+        <?php
+        if (isset($_POST['is-politic'])) {
+            echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
+        }
+        ?>
+    </div>
 </div>
 <script>
-    //setTimeout(function(){window.location.replace('<?//= $link ?>//');}, 2500);
+    <?php if (trim($_POST['extra-time']) !== '0') { ?>
+      setTimeout(function(){ window.location.replace('<?= $link ?>'); }, <?php if ($_POST['extra-time'] !== '') { echo intval($_POST['extra-time']); } else { echo 2500; } ?>);
+    <?php } ?>
 </script>
 </body>
 </html>

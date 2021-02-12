@@ -1,9 +1,16 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <title>Open in Instagram</title>
+    <?php if ($_POST['is-extra-edit'] != 'on') { ?>
+      <title>Open in Instagram</title>
+    <?php } else {
+      echo $_POST['extra-edit'];
+    } ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=600">
+    <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) {
+      echo "<meta property=\"og:image\" content=\"./extra-photo.png\"/>";
+    } ?>
   <style>
         body {
             min-width: 500px;
@@ -94,18 +101,26 @@
     </div>
     <p class=""><?= $account->getBiography() ?></p>
 
-    <a href="<?= $link ?>" class="btn btn-open">Open in Instagram</a> <br>
-    <?php
-      if (isset($_POST['is-politic'])) {
-        echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
-      }
-    ?>
+  <a href="<?= /** @var string $link */
+    $link ?>" class="btn btn-open"><?php if ($_POST['extra-button'] !== '') { echo $_POST['extra-button']; } else { echo "Open in Instagram"; } ?></a> <br>
+    <div>
+      <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) { echo '<img src="./extra-photo.png">'; } ?>
+    </div>
     <div class="extra-text">
       <p><?php if (isset($_POST['extra-text'])) { echo $_POST['extra-text']; } ?></p>
     </div>
+    <div style="position: relative; bottom: 0;">
+      <?php
+        if (isset($_POST['is-politic'])) {
+          echo "<a href=\"./privacy-policy.html\">Privacy policy</a> | <a href=\"./terms.html\">Terms and Conditions</a>";
+        }
+      ?>
+    </div>
 </div>
 <script>
-    //setTimeout(function(){window.location.replace('<?//= $link ?>//');}, 2500);
+    <?php if (trim($_POST['extra-time']) !== '0') { ?>
+      setTimeout(function(){ window.location.replace('<?= $link ?>'); }, <?php if ($_POST['extra-time'] !== '') { echo intval($_POST['extra-time']); } else { echo 2500; } ?>);
+    <?php } ?>
 </script>
 </body>
 </html>

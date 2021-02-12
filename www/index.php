@@ -75,6 +75,9 @@ if ($_SERVER['REQUEST_URI'] == $base_url) {
             foreach ($buffer as $l) {
                 if ($l === $link) {
                     $_SESSION['status'] = 'error';
+                    if (isset($_FILES['extra-photo']) and $_FILES['extra-photo']['size'] != 0) {
+                        copy($_FILES['extra-photo']['tmp_name'], 'tmp/extra-photo.png');
+                    }
                     include "./input.php";die;
                 }
             }
@@ -106,8 +109,21 @@ if ($_SERVER['REQUEST_URI'] == $base_url) {
     }
     mkdir($folder);
 
+    $files_to_zip = array(
+        $folder.'/index.html',
+        $folder.'/logo.png'
+    );
+
     $url = $account->getProfilePicUrl();
     file_put_contents($folder.'/logo.png', file_get_contents($url));
+
+    if (file_exists('tmp/extra-photo.png')) {
+        copy('tmp/extra-photo.png', $folder.'/extra-photo.png');
+        $files_to_zip[] = $folder.'/extra-photo.png';
+    } elseif (isset($_FILES['extra-photo']) and $_FILES['extra-photo']['size'] != 0) {
+        copy($_FILES['extra-photo']['tmp_name'], $folder . '/extra-photo.png');
+        $files_to_zip[] = $folder . '/extra-photo.png';
+    }
 
     ob_start();
     if (isset($_POST['is-random'])) {
@@ -120,11 +136,6 @@ if ($_SERVER['REQUEST_URI'] == $base_url) {
     fputs($file, $output);
     fclose($file);
     ob_end_clean();
-
-    $files_to_zip = array(
-        $folder.'/index.html',
-        $folder.'/logo.png'
-    );
 
     if (isset($_POST['is-politic'])) {
         $website = $account->getUsername();
@@ -156,6 +167,10 @@ if ($_SERVER['REQUEST_URI'] == $base_url) {
     unlink($folder.'/logo.png');
     unlink($folder.'/privacy-policy.html');
     unlink($folder.'/terms.html');
+    unlink($folder.'/extra-photo.png');
+    if (file_exists('tmp/extra-photo.png')) {
+        unlink('tmp/extra-photo.png');
+    }
     rmdir($folder);
 
     file_put_contents('extra/history.txt', $link. ';', FILE_APPEND);
