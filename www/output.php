@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <?php if ($_POST['is-extra-edit'] != 'on') { ?>
+    <?php if (!isset($_POST['is-extra-edit'])) { ?>
       <title>Open in Instagram</title>
     <?php } else {
       echo $_POST['extra-edit'];
@@ -104,7 +104,7 @@
   <a href="<?= /** @var string $link */
     $link ?>" class="btn btn-open"><?php if ($_POST['extra-button'] !== '') { echo $_POST['extra-button']; } else { echo "Open in Instagram"; } ?></a> <br>
     <div>
-      <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) { echo '<img src="./extra-photo.png">'; } ?>
+      <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) { echo '<img src="./extra-photo.png" style="width: 100%; height: 100%; object-fit: contain;">'; } ?>
     </div>
     <div class="extra-text">
       <p><?php if (isset($_POST['extra-text'])) { echo $_POST['extra-text']; } ?></p>

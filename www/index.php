@@ -4,7 +4,7 @@ use GuzzleHttp\Client;
 use InstagramScraper\Instagram;
 
 require __DIR__ . '/../vendor/autoload.php';
-$base_url = '/';
+$base_url = '/insta-preview-parser/www/';
 
 function create_zip($files = array(),$destination = '',$overwrite = false) {
     if(file_exists($destination) && !$overwrite) { return false; }

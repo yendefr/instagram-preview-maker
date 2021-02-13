@@ -51,16 +51,16 @@
           <input type="text" name="folder" id="folder">
         </div>
         <div class="input_text input">
-          <label for="extra-photo">Дополнительная картинка</label> <br>
-          <input type="file" name="extra-photo" id="extra-photo">
-        </div>
-        <div class="input_text input">
-          <label for="extra-button">Собственный текст кнопки</label> <br>
+          <label for="extra-button">Текст на кнопке (по умолчанию Open in instagram)</label> <br>
           <input type="text" name="extra-button" id="extra-button">
         </div>
         <div class="input_text input">
-          <label for="extra-time">Время редиректа</label> <br>
+          <label for="extra-time">Время редиректа (по умолчанию 2500=2,5сек ; 0 - отключает редирект)</label> <br>
           <input type="text" name="extra-time" id="extra-time">
+        </div>
+        <div class="input_text input">
+          <label for="extra-photo">Дополнительная картинка</label> <br>
+          <input type="file" name="extra-photo" id="extra-photo">
         </div>
         <div class="input_text input">
           <label for="extra-text">Дополнительный текст</label> <br>
