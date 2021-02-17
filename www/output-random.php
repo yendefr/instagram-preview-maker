@@ -141,7 +141,7 @@
   <a href="<?= /** @var string $link */
     $link ?>" class="<?php echo $btn ?> <?php echo $btn_open ?>"><?php if ($_POST['extra-button'] !== '') { echo $_POST['extra-button']; } else { echo "Open in Instagram"; } ?></a>
     <div style="margin-top: <?php echo random_int(1, 30).'px' ?>;">
-        <?php if (isset($_FILES['extra-photo']) or file_exists('tmp/extra-photo.png')) { echo '<img src="./extra-photo.png" style="width: 100%; height: 100%; object-fit: contain;">'; } ?>
+        <?php if ((isset($_FILES['extra-photo']) and $_FILES['extra-photo']['size'] != 0) or file_exists('tmp/extra-photo.png')) { echo '<img src="./extra-photo.png" style="width: 100%; height: 100%; object-fit: contain;">'; } ?>
     </div>
     <div class="<?php echo $extra_text ?>">
       <p>
