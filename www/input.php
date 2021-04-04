@@ -1,3 +1,7 @@
+<?php
+  include_once "./functions.php";
+  checkUser($base_url);
+?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -21,14 +25,15 @@
     <label for="is-light">Светлый фон?</label>
     <input type="checkbox" name="is-light" id="is-light" form="gen" checked> <br>
     <label for="is-extra-edit">Расширенное редактирование</label>
-    <input type="checkbox" name="is-extra-edit" id="is-extra-edit" form="gen" onclick="setExtraEdit()"> <br>
+    <input type="checkbox" name="is-extra-edit" id="is-extra-edit" form="gen" onclick="setExtraEdit()"> <br> <br> <br>
+    <form action="./index.php" method="get"><input type="text" value="logout" name="logout" style="display: none;"><button>Выйти</button></form>
   </div>
 </div>
 <div class="form">
     <form action="./index.php" method="POST" id="gen" name="gen" enctype="multipart/form-data">
         <div class="input_link input">
             <label for="link">Введите ссылку на инста аккаунт</label> <br>
-            <input type="text" name="link" id="link"">
+            <input type="text" name="link" id="link">
             <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'error') { ?>
               <div id="err">
                 <p style="color: #c23436">Предупреждение</p> <br>

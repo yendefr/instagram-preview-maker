@@ -1,3 +1,7 @@
+<?php
+  include_once "./functions.php";
+  checkUser($base_url);
+?>
 <!doctype html>
 <html lang="ru">
 <head>

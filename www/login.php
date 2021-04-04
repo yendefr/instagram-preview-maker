@@ -11,10 +11,10 @@
 </head>
 <body>
 <div class="form">
-    <form action="./input.php" method="POST">
+    <form action="./index.php" method="POST">
         <div class="input_link input">
-            <label for="username">Введите логин</label> <br>
-            <input type="text" name="username" id="username">
+            <label for="login">Введите логин</label> <br>
+            <input type="text" name="login" id="login">
         </div>
         <div class="input_template input">
             <label for="password">Введите пароль</label> <br>
